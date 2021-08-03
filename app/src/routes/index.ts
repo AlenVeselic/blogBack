@@ -1,7 +1,9 @@
 import express from "express";
 import PingController from "../controllers/ping.controller";
 import UserRouter from "./user.router";
-
+import jobTitleRouter from "./jobTitle.router";
+import profileRouter from "./userprofile.router";
+import postRouter from "./post.router";
 const router = express.Router();
 
 router.get("/ping", async (_req, res) => {
@@ -11,5 +13,9 @@ router.get("/ping", async (_req, res) => {
 });
 
 router.use("/users", UserRouter);
+router.use("/jobtitles", jobTitleRouter);
+router.use("/profiles", profileRouter);
+router.use("/posts", postRouter);
+
 
 export default router;

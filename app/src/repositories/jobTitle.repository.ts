@@ -6,6 +6,24 @@ export interface IJobTitlePayload{
 }
 
 export const getJobTitles = async (): Promise<Array<JobTitle>> => {
+
+    /*const defaultTitles: string[] = ["Student", "IT", "HR", "Marketing",
+                        "Design", "Tester", "Developer"];
+
+    for (var title of defaultTitles) {
+        const jobTitleRepository = getRepository(JobTitle);
+        console.log(await jobTitleRepository.findOne({ name: title}));
+        if(!(await jobTitleRepository.findOne({ name: title}))){
+            const newJobTitle = new JobTitle();
+            newJobTitle.name = title;
+            const jobSaveResult = await jobTitleRepository.save(newJobTitle);
+            console.log(jobSaveResult);
+        }
+        
+    }
+    Initial job title insertion, i don't know where to put this just yet
+    */
+    
     const jobTitleRepository = getRepository(JobTitle);
     return jobTitleRepository.find();
 };

@@ -11,3 +11,8 @@ export class JobTitle{
     @Column()
     name!: string;
 }
+
+
+
+
+

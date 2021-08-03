@@ -4,6 +4,7 @@ import JobTitleController from "../controllers/jobTitle.controller";
 const router = express.Router();
 
 router.get("/", async (_req, res) => {
+    
     const controller = new JobTitleController();
     const response = await controller.getJobTitles();
     return res.send(response);
