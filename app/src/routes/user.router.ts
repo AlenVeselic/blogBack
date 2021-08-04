@@ -10,9 +10,11 @@ router.get("/", async (_req, res) => {
 });
 
 router.post("/", async (req, res) => {
-    const controller = new UserController();
+    /*const controller = new UserController();
     const response = await controller.createUser(req.body);
-    return res.send(response);
+    return res.send(response);*/
+    console.log(req.body);
+    return res.send({ message: "Ok"});
 });
 
 router.get("/:id", async (req, res) => {
