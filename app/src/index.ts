@@ -7,6 +7,8 @@ import swaggerUi from "swagger-ui-express";
 import Router from "./routes";
 import dbConfig from "./config/database";
 
+import cors from "cors";
+
 const PORT = process.env.PORT || 8000;
 
 const app: Application = express();
@@ -24,6 +26,8 @@ app.use(
         },
     })
 );
+
+app.use(cors({origin: "http://localhost:4200"}));
 
 app.use(Router);
 

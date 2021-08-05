@@ -10,12 +10,19 @@ router.get("/", async (_req, res) => {
 });
 
 router.post("/", async (req, res) => {
-    /*const controller = new UserController();
+    const controller = new UserController();
     const response = await controller.createUser(req.body);
-    return res.send(response);*/
-    console.log(req.body);
-    return res.send({ message: "Ok"});
+    return res.send(response);
+    
 });
+
+router.post("/delete", async (req, res) => {
+    const controller = new UserController();
+    const response = await controller.deleteUser(req.body.id);
+    if(response) res.send( {message: "User deleted."})
+    return res.send({message: "No user found."})
+    
+})
 
 router.get("/:id", async (req, res) => {
     const controller = new UserController();

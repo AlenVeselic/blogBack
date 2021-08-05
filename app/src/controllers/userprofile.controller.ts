@@ -5,6 +5,7 @@ import {
     IUserprofilePayload,
     createProfile,
     getProfile,
+    deleteProfile,
 }from "../repositories/userProfile.repository";
 
 @Route("profiles")
@@ -18,6 +19,11 @@ export default class userprofileController {
     @Post("/")
     public async createProfile(@Body() body: IUserprofilePayload): Promise<userprofile> {
         return createProfile(body);
+    }
+
+    @Post("/delete")
+    public async deleteProfile(@Body() id:string): Promise<boolean>{
+        return deleteProfile(Number(id));
     }
 
     @Get("/:id")

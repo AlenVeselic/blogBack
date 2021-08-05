@@ -3,6 +3,7 @@ import {
     PrimaryGeneratedColumn,
     Column,
     OneToOne,
+    ManyToOne,
     JoinColumn,
 } from "typeorm";
 
@@ -32,8 +33,7 @@ export class userprofile{
     @OneToOne(() => User, user => user.profile)
     user!: User;
 
-    @OneToOne(() => JobTitle)
-    @JoinColumn()
+    @ManyToOne((_type) => JobTitle, (jobTitle: JobTitle) => jobTitle.profiles)
     jobTitle!: JobTitle;
     
 }

@@ -1,5 +1,7 @@
 import { getRepository } from "typeorm";
-import {  User, userprofile } from "../models";
+import {  JobTitle, User, userprofile } from "../models";
+import { IUserprofilePayload } from "./userProfile.repository";
+import bcrypt from "bcryptjs";
 
 export interface IUserPayload {
     username: string;
@@ -21,20 +23,39 @@ export const createUser = async (payload: IUserPayload): Promise<User> => {
     const profileRepository = getRepository(userprofile)
     const profile = new userprofile()
 
-    const savedProfile = profileRepository.save(
-        profile,
-    )
+    const jobTitleRepository = getRepository(JobTitle);
+    const jobTitle = await jobTitleRepository.findOne({ id: 9 });
 
-    const profileId = (await savedProfile).id
+    const freshProfileValues: IUserprofilePayload = {
+        profilePic: " ",
+        webPage: " ",
+        phoneNumber: " ",
+        age: " ",
+        gender: 0,
+        bio: " ",
+    }
 
+    profile.jobTitle = jobTitle || new JobTitle();
+
+
+
+    const savedProfile = profileRepository.save({
+        ...profile,
+        ...freshProfileValues,
+    });
+
+
+    user.profile = await savedProfile;
+
+    payload.pass = await bcrypt.hash(payload.pass, 10);
 
     return userRepository.save({
         ...user,
-        ...payload, profileId,
+        ...payload,
     });
 };
 
-export const deleteUser = async(id: number): Promise<Boolean> => {
+export const deleteUser = async(id: number): Promise<boolean> => {
     const userRepository = getRepository(User);
     const user = await userRepository.findOne({ id: id});
     if(!user){

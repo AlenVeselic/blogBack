@@ -15,6 +15,14 @@ router.post("/", async (req, res) => {
     return res.send(response);
 });
 
+router.post("/delete", async (req, res) => {
+    const controller = new userprofileController();
+    const response = await controller.deleteProfile(req.body.id);
+    if(response) res.send( {message: "Profile deleted."})
+    return res.send({message: "No user found."})
+    
+})
+
 router.get("/:id", async (req, res) => {
     const controller = new userprofileController();
     const response = await controller.getProfile(req.params.id);

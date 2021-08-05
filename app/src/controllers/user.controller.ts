@@ -3,6 +3,7 @@ import { User } from "../models";
 import {
     getUsers,
     createUser,
+    deleteUser,
     IUserPayload,
     getUser,
 } from "../repositories/user";
@@ -18,6 +19,11 @@ export default class UserController{
     @Post("/")
     public async createUser(@Body() body: IUserPayload): Promise<User> {
         return createUser(body);
+    }
+
+    @Post("/delete")
+    public async deleteUser(@Body() id:string): Promise<boolean>{
+        return deleteUser(Number(id));
     }
 
     @Get("/:id")

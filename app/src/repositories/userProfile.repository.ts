@@ -8,7 +8,6 @@ export interface IUserprofilePayload {
     age: string;
     gender: number;
     bio: string;
-    jobTitleId: number;
 }
 
 export const getProfiles = async (): Promise<Array<userprofile>> => {
@@ -24,6 +23,18 @@ export const createProfile = async ( payload: IUserprofilePayload ): Promise<use
         ...payload,
     });
 };
+
+export const deleteProfile = async(id: number): Promise<boolean> => {
+    const profileRepository = getRepository(userprofile);
+    const profile = await profileRepository.findOne({ id: id});
+    if(!profile){
+        return false;
+    }
+    profileRepository.delete({id: id});
+    return true;
+    
+
+}
 
 export const getProfile = async (id: number): Promise<userprofile | null> => {
     const profileRepository = getRepository(userprofile);
