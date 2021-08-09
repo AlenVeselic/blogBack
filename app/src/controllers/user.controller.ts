@@ -17,8 +17,14 @@ export default class UserController{
     }
 
     @Post("/")
-    public async createUser(@Body() body: IUserPayload): Promise<User> {
-        return createUser(body);
+    public async createUser(@Body() body: IUserPayload): Promise<User | object> {
+        const creation = await createUser(body);
+        if(creation != false){
+            return creation;
+        }else{
+            return ({message: "User already exists"});
+        }
+        
     }
 
     @Post("/delete")
