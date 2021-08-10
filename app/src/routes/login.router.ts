@@ -26,7 +26,7 @@ router.post("/", async (req,res) =>{
                 if(validated){
                     user.pass = "";
                     const tokenData = await createToken(user);
-                    res.send({user: user, token: await createCookie(tokenData)})
+                    res.send({message: "Success", user: user, token: await createCookie(tokenData)})
                 }else{
                     res.send({message: "Incorrect password"})
                 }
@@ -40,7 +40,13 @@ router.post("/", async (req,res) =>{
         console.log("Validation by username")
         if(user != undefined){
             const validated = await checkPassword(user, password);
-            res.send({message: await checkPassword(user, password)});
+            if(validated){
+                user.pass = "";
+                const tokenData = await createToken(user);
+                res.send({message: "Success", user: user, token: await createCookie(tokenData)})
+            }else{
+                res.send({message: "Incorrect password"})
+            }
         }else{
             res.send({message: "Doesn't exist"})
         }
@@ -52,7 +58,6 @@ router.post("/", async (req,res) =>{
 
 async function checkPassword(user: User, reqPassword: string): Promise<boolean>{
     console.log("Reached password check");
-    console.log("Password: " + reqPassword);
     const validation = await bcrypt.compare(reqPassword, user.pass);
     console.log("Password validated as: "+ validation.toString())
     if(validation){
@@ -63,7 +68,7 @@ async function checkPassword(user: User, reqPassword: string): Promise<boolean>{
 }
 
 async function createCookie(tokenData: TokenData){
-    return 'id='+tokenData.token+"; HttpOnly; Max-Age="+tokenData.expiresIn;
+    return {id:tokenData.token, maxAge:tokenData.expiresIn};
 }
 
 export default router;

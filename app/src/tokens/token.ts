@@ -15,7 +15,7 @@ export interface DataStoredInToken{
 }
 
 export const createToken= async (user: User): Promise<TokenData> => {
-    const expiresIn = 6000*6000;
+    const expiresIn = 60*60;
     
     const secrets = process.env.JWT_SECRET || "untetheredSecrecy";
     
