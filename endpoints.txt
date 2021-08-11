@@ -71,6 +71,8 @@ Endpoints used in the blog backend application
 
     GET: posts/:id - returns a post using it's id in params
 
+    GET: posts/from/:id - returns all posts from a specific user
+
     POST: posts/ - {
                     title: string
                     content: string

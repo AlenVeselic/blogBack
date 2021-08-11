@@ -6,6 +6,7 @@ import {
     getPosts,
     IPostPayload,
     getPost,
+    getUserPosts
 } from "../repositories/post.repository";
 
 @Route("posts")
@@ -24,5 +25,10 @@ export default class PostController {
     @Get("/:id")
     public async getPost(@Path() id: string): Promise<Post | null> {
         return getPost(Number(id));
+    }
+
+    @Get("/from/:id")
+    public async getUserPosts(@Path() id: string): Promise<Array<Post>>{
+        return getUserPosts(Number(id));
     }
 }

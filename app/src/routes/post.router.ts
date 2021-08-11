@@ -22,4 +22,12 @@ router.get("/:id", async (req, res) => {
     return res.send(response);
 });
 
+router.get("/from/:id", async(req, res) => {
+    const controller = new PostController();
+    const response = await controller.getUserPosts(req.params.id);
+    if (!response) res.status(404).send({ message: "No post found" });
+    return res.send(response);
+
+})
+
 export default router;
