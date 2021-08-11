@@ -1,0 +1,82 @@
+Endpoints used in the blog backend application
+
+    GET: users/ - returns all users in the database
+
+    GET: users/:id - returns a single user using id in params
+
+    POST: users/ - {
+                    username: string
+                    email: string
+                    password: string
+                    name: string
+                    surname: string
+                    }
+    Creates a new user with the data passed in the body.
+        The process of creation is as follows:
+            Check if the username or email already exists
+            If not create a fresh empty profile
+                Create a new user
+                Assigns new profile to the user
+                Hash password
+                Save newly created user
+            Otherwise returns a user already exists error
+    
+    POST: users/delete - { id: string } - deletes a user using their id
+
+
+    POST: login/ - {
+                        usernameEmail: string
+                        password: string
+                    }
+    Allows a user to login using either their username or email and a password
+    Checks if mentioned user or email exists to begin with.
+    If the user exists, proceeds to password validation
+        If the password is correct, returns a status message,
+                                              user info and
+                                              json web token.
+
+        a false password returns an "Incorrect password." message.
+    a wrong username or email returns a "Doesn't exist" message.
+
+
+    GET: profiles/ - returns all profiles
+
+    GET: profiles/:id - returns a single profile using id in params
+
+    POST: profiles/ - {
+                        profile picture url/dir: string
+                        web page url: string
+                        phone number: string
+                        age: string
+                        gender: number
+                        bio: string
+                        }
+    Creates a profile. This route is made redundant as profiles are made on 
+    user creation.
+
+    POST: profiles/delete - { id: string } -  deletes a profile using their id
+
+
+    GET: jobtitles/ - returns all job titles
+
+    GET: jobtitles/:id - returns a single job title using id in params
+
+    POST: jobtitles/ - {
+                        name: string
+                        }
+    Creates a job title
+
+
+    GET: posts/ - returns all posts
+
+    GET: posts/:id - returns a post using it's id in params
+
+    POST: posts/ - {
+                    title: string
+                    content: string
+                    userId: number
+                    }
+    Creates a post using passed data for the given user from the user id.
+
+    GET: ping - returns a message, only there for server testing purposes
+        

@@ -6,7 +6,7 @@ export interface IJobTitlePayload{
 }
 
 export const getJobTitles = async (): Promise<Array<JobTitle>> => {
-
+    //Temporary code to fill Job Title table up with hardcoded initial values
     /*const defaultTitles: string[] = ["Student", "IT", "HR", "Marketing",
                         "Design", "Tester", "Developer"];
 
